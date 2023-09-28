@@ -4,6 +4,7 @@ package com.baishakhee.firbasewithrecyclerview.adapter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RecyclerViewDataAdapter extends FirebaseRecyclerAdapter<DataModel, RecyclerViewDataAdapter.ViewHolder> {
-
     Context context;
     FirebaseRecyclerOptions<DataModel> options; // Add this member variable
 
@@ -64,6 +64,7 @@ public class RecyclerViewDataAdapter extends FirebaseRecyclerAdapter<DataModel, 
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull DataModel dataModels) {
+
         holder.name.setText(dataModels.getName());
         holder.age.setText(String.valueOf(dataModels.getAge()));
         holder.city.setText(dataModels.getCity());
@@ -100,24 +101,20 @@ public class RecyclerViewDataAdapter extends FirebaseRecyclerAdapter<DataModel, 
                 btnUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("data");
 
                         Map<String, Object> map = new HashMap<>();
-                        map.put("name", holder.name.getText().toString());
-                        map.put("age", Integer.valueOf(holder.age.getText().toString()));
-                        map.put("city", holder.city.getText().toString());
-                        String dataKey = getRef(position).getKey();
+                        map.put("name", edtName.getText().toString());
+                        map.put("age", Integer.valueOf(edtAge.getText().toString()));
+                        map.put("city", edtCity.getText().toString());
 
-                        dataRef.child(dataKey)
+                       System.out.println("position..........."+getRef(position).getKey());
+                        FirebaseDatabase.getInstance().getReference().child("data")
+                                .child(getRef(position).getKey())
                                 .updateChildren(map)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(holder.name.getContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                                    dialogPlus.dismiss();
 
-                                        Toast.makeText(holder.name.getContext(), "Data Updated Successfully", Toast.LENGTH_SHORT).show();
-                                        dialogPlus.dismiss();
-
-                                    }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
@@ -129,6 +126,41 @@ public class RecyclerViewDataAdapter extends FirebaseRecyclerAdapter<DataModel, 
                     }
                 });
 
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(holder.name.getContext());
+                builder.setTitle("Are you Sure ?")
+                        .setMessage("Delete Data can't we undo")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseDatabase.getInstance().getReference().child("data")
+                                        .child(getRef(position).getKey()).removeValue()
+
+                                        .addOnSuccessListener(unused -> {
+                                            Toast.makeText(holder.name.getContext(), "Data Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(holder.name.getContext(), "Failed", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                builder.show();
             }
         });
     }

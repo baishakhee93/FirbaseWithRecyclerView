@@ -5,5 +5,6 @@
     <color name="appcolor">#A51C6E</color>
     <color name="red">#981309</color>
     <color name="greyColor">#F8F3F3</color>
+    <color name="textColor">#FF000000</color>
 
 </resources>

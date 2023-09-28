@@ -71,11 +71,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/boxbackground"
-                android:hint="@string/username_hints"
                 android:drawableLeft="@drawable/baseline_person_pin_24"
-
+                android:hint="@string/username_hints"
                 android:inputType="textPersonName"
-                android:padding="6dp" />
+                android:padding="6dp"
+                android:textColorHint="#716868"
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/password"
@@ -87,6 +88,8 @@
                 android:hint="@string/password_hints"
                 android:inputType="textPassword"
                 android:padding="6dp"
+                android:textColorHint="#716868"
+                android:textColor="#000000"
                 android:singleLine="true" />
 
             <LinearLayout
@@ -102,7 +105,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="15dp"
                     android:text="Remember Me"
-                    android:textColor="#000000" />
+                    android:textColor="@color/black" />
 
 
                 <TextView
