@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Firbase With RecyclerView</string>
+    <string name="title_activity_login">LoginActivity</string>
+   <string name="title_activity_splash">SplashActivity</string>
+    <string name="username_hints">Username (10 characters)</string>
+    <string name="password_hints">Password (7 characters, 1 uppercase, 1 special char, 1 numeric)</string>
+</resources>

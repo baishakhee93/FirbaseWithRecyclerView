@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396839932598",
+    "project_id": "firbasewithrecyclerview-13e7a",
+    "storage_bucket": "firbasewithrecyclerview-13e7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396839932598:android:42edc00510419951964c17",
+        "android_client_info": {
+          "package_name": "com.baishakhee.firbasewithrecyclerview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVAosu2I59rwEA2YY-iznn0F9oDymK7T8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
